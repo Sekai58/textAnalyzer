@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
 import Navbar from "./components/Navbar";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from "./components/About";
 function App() {
   const [darkMode, setDarkMode] = useState("light");
 
@@ -17,8 +18,14 @@ function App() {
   };
   return (
     <>
-      <Navbar title="TextAnalyzer" mode={darkMode} modeHandle={handleMode} />
-      <Form mode={darkMode} />
+      <BrowserRouter>
+        <Navbar title="TextAnalyzer" mode={darkMode} modeHandle={handleMode} />
+
+        <Routes>
+          <Route path="/home" element={<Form mode={darkMode} />}></Route>
+          <Route path="/about" element={<About mode={darkMode} />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
