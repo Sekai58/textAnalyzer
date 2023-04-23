@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 
-const Form = () => {
+const Form = (props) => {
   const handleUpCase = () => {
-    console.log("upper case clicked");
     setState(state.toUpperCase());
   };
 
   const handleLowerCase = () => {
-    console.log("upper case clicked");
     setState(state.toLowerCase());
   };
 
   const handleOnChange = (e) => {
-    console.log("unchanged clicked");
     setState(e.target.value);
   };
 
@@ -51,8 +48,14 @@ const Form = () => {
   const [state, setState] = useState("Enter text to analyze...");
 
   return (
-    <div className="container">
-      <div className="mb-3 mt-3">
+    <div
+      className="container"
+      style={{ color: props.mode === "dark" ? "light" : "dark" }}
+    >
+      <div
+        className="mb-3 mt-3"
+        style={{ color: props.mode === "dark" ? "light" : "dark" }}
+      >
         <textarea
           className="form-control"
           value={state}
@@ -71,10 +74,18 @@ const Form = () => {
           </button>
         );
       })}
-      <h6>Words:</h6> {state.split(" ").length}
-      <h6>Letters:</h6> {state.length}
-      <h6>Preview:</h6>
-      {state}
+      <div className={`text-${props.mode === "light" ? "dark" : "light"}`}>
+        <div>
+          <h6>Words: {state === "" ? 0 : state.trim().split(/\s+/).length}</h6>
+        </div>
+        <div>
+          <h6>Letters: {state.length}</h6>
+        </div>
+        <div>
+          <h6>Preview:</h6>
+        </div>
+        {state}
+      </div>
     </div>
   );
 };
